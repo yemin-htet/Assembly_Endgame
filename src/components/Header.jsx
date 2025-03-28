@@ -12,7 +12,7 @@ export default function Header() {
             {win? "You win!" : "Game over!"}
                 </div>
             : 
-            <div className="w-4/5 h-1/4 my-5 bg-amber-300 rounded-xl flex justify-center items-center text-white text-2xl">
+            <div className="w-4/5 h-1/4 my-5 bg-blue-400 rounded-xl flex justify-center items-center text-white text-2xl">
             Neutral
             </div>
         }
