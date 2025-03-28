@@ -8,7 +8,7 @@ import NewButton from './components/NewButton.jsx'
 
 function App() {
   let [word,setWord] = useState('react')
-  let [guessWord, setGetWord] = useState([])
+  let [guessWord, setGuessWord] = useState([])
 
   const alphabets = "abcdefghijklmnopqrstuvwxyz"
     const elements = alphabets.split("").map(
@@ -22,9 +22,15 @@ function App() {
             </button>)
         }
     )
+    const wordEle = word.split("").map((letter,index)=>{
+      return <span key={index} className='text-white w-10 h-10 border-b-2 border-white bg-gray-600 
+      flex items-center justify-center '>
+        {guessWord.includes(letter) && letter.toUpperCase()}
+      </span>
+  })
 
   const addLetter = (letter) =>{
-    setGetWord(prevState => prevState.includes(letter)?[...prevState]:[...prevState,letter])
+    setGuessWord(prevState => prevState.includes(letter)?[...prevState]:[...prevState,letter])
   }
 
   return (
@@ -32,7 +38,7 @@ function App() {
       <div className='bg-black opacity-85 w-150 h-200 my-10 flex flex-col items-center justify-start rounded-2xl gap-5'>
         <Header/>
         <LanguageList langs={languages}/>
-        <WordContainer word={word}/>
+        <WordContainer wordEle={wordEle}/>
         <Keyboard elements={elements}/>
         <NewButton/>
       </div>
