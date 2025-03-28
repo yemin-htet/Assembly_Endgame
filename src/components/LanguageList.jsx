@@ -11,7 +11,7 @@ export default function LanguageList({langs}) {
         </span>
     })
   return (
-    <section className='w-3/5 h-1/8 flex items-start justify-center flex-wrap gap-1 px-5'>
+    <section className='w-3/5 h-1/8 flex items-start justify-center flex-wrap gap-1'>k
         {langEle}
     </section>
   )
