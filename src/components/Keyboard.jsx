@@ -11,7 +11,7 @@ export default function Keyboard() {
         }
     )
   return (
-    <div className="flex items-center justify-center flex-wrap w-4/5 gap-1 px-10">
+    <div className="flex items-center justify-center flex-wrap w-4/5 gap-1 px-10 mb-5">
         {elements}
     </div>
   )
