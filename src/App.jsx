@@ -5,10 +5,13 @@ import LanguageList from './components/LanguageList.jsx'
 import WordContainer from './components/WordContainer.jsx'
 import Keyboard from './components/Keyboard.jsx'
 import NewButton from './components/NewButton.jsx'
+import { randomWord } from './components/utils.jsx'
 
 function App() {
-  let [word,setWord] = useState('react')
+  let [word,setWord] = useState(()=>randomWord())
   let [guessWord, setGuessWord] = useState([])
+
+  console.log(word)
 
   const wrongLetterCount = guessWord.filter(letter=> !word.includes(letter)).length
   const isGameWon = word.split("").every(letter => guessWord.includes(letter))
@@ -20,7 +23,7 @@ function App() {
         (letter)=>{
           const isClicked = guessWord.includes(letter)
           const isCorrect = word.split('').includes(letter)
-          const style = isClicked? {backgroundColor: isCorrect? "green" : "red"} : {}
+          const style = isClicked? {backgroundColor: isCorrect? "green" : "red",pointerEvents:"none"} : {}
           const disabledStyle = {...style,opacity:0.25,pointerEvents:"none"}
             return (<button style={isGameOver? disabledStyle: style} onClick={()=> addLetter(letter)} key={letter} className='w-10 h-10 bg-amber-400 text-white flex items-center justify-center rounded-md 
             hover:bg-amber-700'>
@@ -31,7 +34,7 @@ function App() {
     const wordEle = word.split("").map((letter,index)=>{
       return <span key={index} className='text-white w-10 h-10 border-b-2 border-white bg-gray-600 
       flex items-center justify-center '>
-        {guessWord.includes(letter) && letter.toUpperCase()}
+        {(guessWord.includes(letter)||isGameOver) && letter.toUpperCase()}
       </span>
   })
 
@@ -41,7 +44,7 @@ function App() {
     setGuessWord(prevState => prevState.includes(letter)?[...prevState]:[...prevState,letter])
   }
   const newGame = () => {
-    setWord("react")
+    setWord(()=> randomWord())
     setGuessWord([])
   }
 
