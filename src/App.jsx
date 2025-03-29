@@ -10,13 +10,19 @@ function App() {
   let [word,setWord] = useState('react')
   let [guessWord, setGuessWord] = useState([])
 
+  const wrongLetterCount = guessWord.filter(letter=> !word.includes(letter)).length
+  const isGameWon = word.split("").every(letter => guessWord.includes(letter))
+  const isGameLost = wrongLetterCount >= languages.length - 1 
+  const isGameOver = isGameWon || isGameLost
+
   const alphabets = "abcdefghijklmnopqrstuvwxyz"
     const elements = alphabets.split("").map(
         (letter)=>{
           const isClicked = guessWord.includes(letter)
           const isCorrect = word.split('').includes(letter)
           const style = isClicked? {backgroundColor: isCorrect? "green" : "red"} : {}
-            return (<button style={style} onClick={()=> addLetter(letter)} key={letter} className='w-10 h-10 bg-amber-400 text-white flex items-center justify-center rounded-md 
+          const disabledStyle = {...style,opacity:0.25,pointerEvents:"none"}
+            return (<button style={isGameOver? disabledStyle: style} onClick={()=> addLetter(letter)} key={letter} className='w-10 h-10 bg-amber-400 text-white flex items-center justify-center rounded-md 
             hover:bg-amber-700'>
                 {letter.toUpperCase()}
             </button>)
@@ -29,10 +35,7 @@ function App() {
       </span>
   })
 
-  const wrongLetterCount = guessWord.filter(letter=> !word.includes(letter)).length
-  const isGameWon = word.split("").every(letter => guessWord.includes(letter))
-  const isGameLost = wrongLetterCount >= languages.length - 1 
-  const isGameOver = isGameWon || isGameLost
+  
 
   const addLetter = (letter) =>{
     setGuessWord(prevState => prevState.includes(letter)?[...prevState]:[...prevState,letter])
