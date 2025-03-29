@@ -29,18 +29,27 @@ function App() {
       </span>
   })
 
+  const wrongLetterCount = guessWord.filter(letter=> !word.includes(letter)).length
+  const isGameWon = word.split("").every(letter => guessWord.includes(letter))
+  const isGameLost = wrongLetterCount >= languages.length - 1 
+  const isGameOver = isGameWon || isGameLost
+
   const addLetter = (letter) =>{
     setGuessWord(prevState => prevState.includes(letter)?[...prevState]:[...prevState,letter])
+  }
+  const newGame = () => {
+    setWord("react")
+    setGuessWord([])
   }
 
   return (
     <div className="flex items-center justify-center">
       <div className='bg-black opacity-85 w-150 h-200 my-10 flex flex-col items-center justify-start rounded-2xl gap-5'>
-        <Header/>
-        <LanguageList langs={languages}/>
+        <Header isGameOver={isGameOver} isGameWon={isGameWon}/>
+        <LanguageList langs={languages} wrongLetterCount={wrongLetterCount}/>
         <WordContainer wordEle={wordEle}/>
         <Keyboard elements={elements}/>
-        <NewButton/>
+        {isGameOver && <NewButton newGame={newGame}/>}
       </div>
     </div>
   )

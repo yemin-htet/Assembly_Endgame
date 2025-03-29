@@ -1,12 +1,15 @@
 import React from 'react'
 
-export default function LanguageList({langs}) {
-    const langEle = langs.map((lang) =>{
+export default function LanguageList({langs,wrongLetterCount}) {
+    const langEle = langs.map((lang,index) =>{
+        const isLost = index < wrongLetterCount
         const style = {
             backgroundColor : lang.backgroundColor,
-            color: lang.color
+            color: lang.color,
+            opacity: isLost? 0.25:1
         }
-        return <span className="px-2 py-2 rounded-xl" style={style}>
+        return <span key={index} className="px-2 py-2 rounded-xl relative" style={style}>
+            {isLost && <span className='absolute insert-0 flex items-center justify-center w-full h-full top-0 left-0 right-0 text-2xl font-bold'>🩻</span>}
             {lang.name}
         </span>
     })
