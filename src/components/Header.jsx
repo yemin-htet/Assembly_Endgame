@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import { getFarewellText } from './utils.jsx'
+import {languages} from '../languages.jsx'
 
-export default function Header({isGameOver,isGameWon}) {
+export default function Header({isGameOver,isGameWon,wrongLetterCount}) {
     const isShow = isGameOver
     const win = isGameWon
   return (
@@ -14,7 +15,7 @@ export default function Header({isGameOver,isGameWon}) {
                 </div>
             : 
             <div className="w-4/5 h-1/4 my-5 bg-blue-400 rounded-xl flex justify-center items-center text-white text-2xl">
-              Playing
+              {wrongLetterCount < 1? "Neutral":getFarewellText(languages[wrongLetterCount-1].name)}
             </div>
         }
         

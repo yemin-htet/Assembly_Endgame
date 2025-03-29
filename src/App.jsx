@@ -45,7 +45,7 @@ function App() {
   return (
     <div className="flex items-center justify-center">
       <div className='bg-black opacity-85 w-150 h-200 my-10 flex flex-col items-center justify-start rounded-2xl gap-5'>
-        <Header isGameOver={isGameOver} isGameWon={isGameWon}/>
+        <Header isGameOver={isGameOver} isGameWon={isGameWon} wrongLetterCount={wrongLetterCount}/>
         <LanguageList langs={languages} wrongLetterCount={wrongLetterCount}/>
         <WordContainer wordEle={wordEle}/>
         <Keyboard elements={elements}/>
